@@ -14,7 +14,8 @@ export interface NavItem {
 }
 
 export function BottomNav({ items }: { items: NavItem[] }) {
-  const pathname = usePathname();
+  // Static export uses trailing slashes ("/app/"); compare without them.
+  const pathname = usePathname().replace(/\/+$/, "") || "/";
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 mx-auto w-full max-w-md border-t bg-background/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-lg">
       <ul className="grid" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>

@@ -3,10 +3,11 @@
 import { LngLatBounds, MapLibreMap, Marker, setWorkerUrl, type GeoJSONSource } from "maplibre-gl";
 import { useEffect, useRef, useState } from "react";
 
+import { withBase } from "@/lib/base-path";
 import { cn } from "@/lib/utils";
 
 // Copied into /public by scripts/copy-map-worker.mjs (see package.json dev/build).
-setWorkerUrl("/vendor/maplibre-gl-worker.mjs");
+setWorkerUrl(withBase("/vendor/maplibre-gl-worker.mjs"));
 
 type LngLat = [number, number];
 

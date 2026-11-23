@@ -8,6 +8,7 @@ import { Logo } from "@/components/brand/logo";
 import { PhoneFrame } from "@/components/demo/phone-frame";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { pageUrl } from "@/lib/base-path";
 import { STATUS_LABEL } from "@/lib/demo/status";
 import { useActiveJob, useDemo, useHydrated, type JobStatus } from "@/lib/demo/store";
 import { cn } from "@/lib/utils";
@@ -91,8 +92,8 @@ export default function DemoPage() {
       <main className="flex flex-wrap items-start justify-center gap-8 px-6 pb-10">
         {ready ? (
           <>
-            <PhoneFrame key={`c${frameKey}`} src="/app" title="Customer" caption="Sarah · Ntinda" scale={scale} />
-            <PhoneFrame key={`f${frameKey}`} src="/fundi" title="Fundi" caption="Kato · Bukoto" scale={scale} />
+            <PhoneFrame key={`c${frameKey}`} src={pageUrl("/app")} title="Customer" caption="Sarah · Ntinda" scale={scale} />
+            <PhoneFrame key={`f${frameKey}`} src={pageUrl("/fundi")} title="Fundi" caption="Kato · Bukoto" scale={scale} />
           </>
         ) : (
           <p className="py-40 text-white/60">Preparing the demo…</p>

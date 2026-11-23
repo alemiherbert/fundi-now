@@ -1,13 +1,18 @@
 // Fundi Now service worker (demo): offline app shell + cached static assets.
 // Map tiles and other cross-origin requests always go to the network.
-const CACHE = "fundi-now-v1";
-const OFFLINE_URL = "/offline";
+// Works at the site root locally and under /fundi-now/ on GitHub Pages.
+const BASE = new URL("./", self.location.href).pathname; // "/" or "/fundi-now/"
+const SLASH = new URL(self.location.href).searchParams.has("slash") ? "/" : "";
+const page = (p) => (p ? `${BASE}${p}${SLASH}` : BASE);
+
+const CACHE = "fundi-now-v2";
+const OFFLINE_URL = page("offline");
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
       .open(CACHE)
-      .then((cache) => cache.addAll([OFFLINE_URL, "/", "/app", "/fundi"]))
+      .then((cache) => cache.addAll([OFFLINE_URL, page(""), page("app"), page("fundi")]))
       .then(() => self.skipWaiting()),
   );
 });
@@ -42,7 +47,7 @@ self.addEventListener("fetch", (event) => {
   }
 
   // Hashed build assets and icons: cache first.
-  if (url.pathname.startsWith("/_next/static/") || url.pathname.startsWith("/icons/")) {
+  if (url.pathname.startsWith(`${BASE}_next/static/`) || url.pathname.startsWith(`${BASE}icons/`)) {
     event.respondWith(
       caches.match(request).then(
         (cached) =>

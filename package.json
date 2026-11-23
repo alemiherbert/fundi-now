@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "node scripts/copy-map-worker.mjs && next dev",
     "build": "node scripts/copy-map-worker.mjs && next build",
+    "build:pages": "GITHUB_PAGES=true PAGES_BASE_PATH=/fundi-now pnpm build",
     "start": "next start",
     "lint": "eslint"
   },
